@@ -1,2 +1,2 @@
 # web-dom-template-pattern
-personal notes
+personal notes φ(..)
