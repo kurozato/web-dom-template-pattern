@@ -50,16 +50,10 @@
         result.innerHTML = '';
         buttonSearch.disabled = true;
 
-        axios.get(URL_GET_MAIN_DATA, data)
-            .then(function (response) {// success part
-                sideMenuFactory(response.data);
-            })
-            .catch(function (error) {  // handle error
-                console.log(error);
-            })
-            .finally(function () {// always executed
-                buttonSearch.disabled = fales;
-            });
+        axios.get(URL_GET_MAIN_DATA, {params: serializeObject(data)})
+            .then((response) => sideMenuFactory(response.data))
+            .catch((error) => { console.log(error); })
+            .finally(() => { buttonSearch.disabled = fales; });
     };
 
     const getDetailData = function(id){
@@ -69,6 +63,14 @@
         //...do something
     };
 
+    const serializeObject = function (formData) {
+        let obj = {};
+        for (let key of formData.keys()) {
+            obj[key] = formData.get(key);
+        }
+        return obj;
+    };
+    
     const reflectForm = function(data){
         const max = data.length;
         if(data === null || max === 0)
